@@ -14,5 +14,17 @@ pipeline{
                 sh 'npm install'
             }
         }
+        stage("Test code"){
+            steps{
+                sh 'npm test'
+            }
+        }
+        post{
+            success{
+                script{
+                    slackSend(channel:"devops-automation", message:"*${currentBuild.currentResult}:* \n build ${env.BUILD_NUMBER}")
+                }
+            }
+        }
     }
 }
