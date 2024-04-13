@@ -19,11 +19,13 @@ pipeline{
                 sh 'npm test'
             }
         }
-        post{
-            success{
-                script{
-                    slackSend(channel:"devops-automation", message:"*${currentBuild.currentResult}:* \n build ${env.BUILD_NUMBER}")
-                }
+        post {
+            always {
+                echo 'Slack Notifications'
+                slackSend (
+                    channel:"devops-automation",
+                    message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} \n build ${env.BUILD_NUMBER} \n More info at: ${env.BUILD_URL}"
+                )
             }
         }
     }
