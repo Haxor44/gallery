@@ -3,8 +3,6 @@ pipeline{
     tools{
         nodejs 'node'
     }
-    script {
-    try {
     stages{
         stage("Clone code"){
             steps{
@@ -18,15 +16,19 @@ pipeline{
         }
         stage("Test code"){
             steps{
-                sh 'np tst'
+                script {
+                    try {
+                        sh 'npm test'
+                    } catch (err){  
+                        emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
+                    }
+                }
+                
             }
         }
 
     }
-    } catch (err){  
-            emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
-        }
-    }
+    
 
     post {
             always {
