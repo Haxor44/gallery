@@ -3,6 +3,7 @@ pipeline{
     tools{
         nodejs 'node'
     }
+    script {
     try {
     stages{
         stage("Clone code"){
@@ -25,6 +26,7 @@ pipeline{
     } catch (err){  
             emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
         }
+    }
 
     post {
             always {
