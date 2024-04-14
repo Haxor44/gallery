@@ -18,7 +18,7 @@ pipeline{
             steps{
                 script {
                     try {
-                        sh 'npm test'
+                        sh 'np tst'
                     } catch (err){  
                         emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
                     }
