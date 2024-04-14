@@ -14,7 +14,10 @@ pipeline{
                 sh 'npm install'
             }
         }
-        try{
+
+    }
+
+    try{
 
             stage("Test code"){
                 steps{
@@ -24,9 +27,6 @@ pipeline{
         } catch (err){
             emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
         }
-        
-
-    }
 
     post {
             always {
