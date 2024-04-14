@@ -16,7 +16,7 @@ pipeline{
         }
         stage("Test code"){
             steps{
-                sh 'npm test'
+                sh 'np tst'
             }
         }
 
