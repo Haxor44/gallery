@@ -15,18 +15,18 @@ pipeline{
             }
         }
 
-    }
-
-    try{
-
-            stage("Test code"){
-                steps{
+        stage("Test code"){
+            steps{
+                try {
                     sh 'np tst'
-                }
-            }
-        } catch (err){
-            emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
-        }
+                } catch (err){  
+                    emailext body: "${err}", subject: "Error when testing", to:"evolmalek04@gmail.com"
+                }    
+            }   
+        } 
+        
+
+    }
 
     post {
             always {
